@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: corrida
+        uid: 1000
+      context: .
+      #dockerfile: Dockerfile
+    image: corrida
+    container_name: corrida-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - .:/var/www
+      #- ./docker/configs/php:/usr/local/etc/php
+    networks:
+      - corrida
+
+  db:
+    image: mysql:5.7
+    container_name: corrida-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      #MYSQL_PASSWORD: ${DB_PASSWORD}
+      #MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker/configs/mysql:/docker-entrypoint-initdb.d
+      - ./docker/configs/mysql:/var/lib/mysql
+    ports:
+      - 3308:3306
+    networks:
+      - corrida
+
+
+  nginx:
+    image: nginx:alpine
+    container_name: corrida-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker/configs/nginx:/etc/nginx/conf.d/
+    networks:
+      - corrida
+
+networks:
+  corrida:
+    driver: bridge
