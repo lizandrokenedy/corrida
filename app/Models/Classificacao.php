@@ -16,6 +16,9 @@ class Classificacao extends Model
     ];
 
     protected $fillable = [
-
+        'posicao',
+        'corredor_id',
+        'prova_id',
+        'tipo_classificacao_id',
     ];
 }

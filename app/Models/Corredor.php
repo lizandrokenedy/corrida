@@ -16,6 +16,9 @@ class Corredor extends Model
     ];
 
     protected $fillable = [
-
+        'nome',
+        'cpf',
+        'data_nascimento',
+        'idade',
     ];
 }

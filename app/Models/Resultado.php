@@ -16,6 +16,9 @@ class Resultado extends Model
     ];
 
     protected $fillable = [
-
+        'corredor_id',
+        'prova_id',
+        'hora_inicio_prova',
+        'hora_conclusao_prova',
     ];
 }

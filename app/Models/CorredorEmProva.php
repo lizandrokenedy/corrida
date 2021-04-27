@@ -16,6 +16,7 @@ class CorredorEmProva extends Model
     ];
 
     protected $fillable = [
-
+        'corredor_id',
+        'prova_id'
     ];
 }

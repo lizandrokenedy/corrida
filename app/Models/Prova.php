@@ -16,6 +16,7 @@ class Prova extends Model
     ];
 
     protected $fillable = [
-
+        'tipo_prova_id',
+        'data',
     ];
 }
