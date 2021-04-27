@@ -9,7 +9,7 @@ services:
       #dockerfile: Dockerfile
     image: corrida
     container_name: corrida-app
-    restart: unless-stopped
+    restart: always
     working_dir: /var/www/
     volumes:
       - .:/var/www
@@ -20,7 +20,7 @@ services:
   db:
     image: mysql:5.7
     container_name: corrida-db
-    restart: unless-stopped
+    restart: always
     environment:
       MYSQL_DATABASE: ${DB_DATABASE}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
@@ -40,7 +40,7 @@ services:
   nginx:
     image: nginx:alpine
     container_name: corrida-nginx
-    restart: unless-stopped
+    restart: always
     ports:
       - 8000:80
     volumes:
