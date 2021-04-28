@@ -24,7 +24,7 @@ class ProvaRequest extends FormRequest
     public function rules()
     {
         return [
-            'tipo_prova_id' =>'required|integer',
+            'tipo_prova_id' =>'required|integer|exists:tipos_provas,id',
             'data' => 'required|date',
         ];
     }

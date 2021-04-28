@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TipoProvaRequest;
+use App\Services\TipoProvaService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TipoProvaController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->tipoProvaService = new TipoProvaService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +24,11 @@ class TipoProvaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            return $this->responseDataSuccess($this->tipoProvaService->listar());
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -24,7 +39,21 @@ class TipoProvaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+
+            $validacao = Validator::make($request->all(), (new TipoProvaRequest())->rules());
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->tipoProvaService->criar($request->all());
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -35,7 +64,12 @@ class TipoProvaController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+
+            return $this->responseDataSuccess($this->tipoProvaService->obterPorId($id));
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -47,7 +81,19 @@ class TipoProvaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $validacao = Validator::make($request->all(), (new TipoProvaRequest())->rules($id));
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->tipoProvaService->atualizar($request->all(), $id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -58,6 +104,13 @@ class TipoProvaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $this->tipoProvaService->deletar($id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 }

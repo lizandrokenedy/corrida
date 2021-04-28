@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProvaRequest;
+use App\Services\ProvaService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProvaController extends Controller
 {
+    public function __construct()
+    {
+        $this->provaService = new ProvaService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,11 @@ class ProvaController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            return $this->responseDataSuccess($this->provaService->listar());
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -24,7 +37,21 @@ class ProvaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+
+            $validacao = Validator::make($request->all(), (new ProvaRequest())->rules());
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->provaService->criar($request->all());
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -35,7 +62,12 @@ class ProvaController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+
+            return $this->responseDataSuccess($this->provaService->obterPorId($id));
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -47,7 +79,19 @@ class ProvaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $validacao = Validator::make($request->all(), (new ProvaRequest())->rules($id));
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->provaService->atualizar($request->all(), $id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -58,6 +102,13 @@ class ProvaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $this->provaService->deletar($id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 }

@@ -21,13 +21,13 @@ class CorredorRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules($id = null)
     {
         return [
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:11',
+            'cpf' => 'required|string|max:11|unique:corredores,cpf,' . $id,
             'data_nascimento' => 'required|date',
-            'idade' => 'required|integer|max:3',
+            'idade' => 'required|integer',
         ];
     }
 }

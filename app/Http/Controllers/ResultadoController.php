@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResultadoRequest;
+use App\Services\ResultadoService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ResultadoController extends Controller
 {
+    public function __construct()
+    {
+        $this->resultadoService = new ResultadoService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,11 @@ class ResultadoController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            return $this->responseDataSuccess($this->resultadoService->listar());
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -24,7 +37,21 @@ class ResultadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        try {
+
+            $validacao = Validator::make($request->all(), (new ResultadoRequest())->rules());
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->resultadoService->criar($request->all());
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -35,7 +62,12 @@ class ResultadoController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+
+            return $this->responseDataSuccess($this->resultadoService->obterPorId($id));
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -47,7 +79,19 @@ class ResultadoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $validacao = Validator::make($request->all(), (new ResultadoRequest())->rules($id));
+
+            if ($validacao->fails()) {
+                return $this->responseError($validacao->errors());
+            }
+
+            $this->resultadoService->atualizar($request->all(), $id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 
     /**
@@ -58,6 +102,13 @@ class ResultadoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $this->resultadoService->deletar($id);
+
+            return $this->responseSuccess();
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
     }
 }

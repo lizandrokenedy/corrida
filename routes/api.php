@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\CorredorController;
+use App\Http\Controllers\ProvaController;
+use App\Http\Controllers\TipoClassificacaoController;
+use App\Http\Controllers\TipoProvaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +18,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 Route::get('/', function () {
     return "It's working";
 });
+
+
+Route::apiResources(['tipo-classificacao' => TipoClassificacaoController::class]);
+Route::apiResources(['tipo-prova' => TipoProvaController::class]);
+Route::apiResources(['corredor' => CorredorController::class]);
+Route::apiResources(['prova' => ProvaController::class]);

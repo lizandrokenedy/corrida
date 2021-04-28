@@ -25,9 +25,9 @@ class ClassificacaoRequest extends FormRequest
     {
         return [
             'posicao' => 'required|integer',
-            'corredor_id' => 'required|integer',
-            'prova_id' => 'required|integer',
-            'tipo_classificacao_id' => 'required|integer',
+            'corredor_id' => 'required|integer|exists:corredores,id',
+            'prova_id' => 'required|integer|exists:provas,id',
+            'tipo_classificacao_id' => 'required|integer|exists:tipos_classificacoes,id',
         ];
     }
 }
