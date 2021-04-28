@@ -19,4 +19,9 @@ class TipoClassificacao extends Model
         'descricao',
     ];
 
+    public function classificacoes()
+    {
+        return $this->hasMany(Classificacao::class, 'tipo_classificacao_id', 'id');
+    }
+
 }

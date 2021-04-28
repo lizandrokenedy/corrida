@@ -54,4 +54,14 @@ class ClassificacaoService
 
         return $registro;
     }
+
+    public function classificacoesPorIdade()
+    {
+
+    }
+
+    public function classificacoesGerais()
+    {
+        
+    }
 }

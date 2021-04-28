@@ -21,4 +21,14 @@ class Resultado extends Model
         'hora_inicio_prova',
         'hora_conclusao_prova',
     ];
+
+    public function corredores()
+    {
+        return $this->belongsTo(Corredor::class, 'corredor_id', 'id');
+    }
+
+    public function provas()
+    {
+        return $this->belongsTo(Prova::class, 'prova_id', 'id');
+    }
 }

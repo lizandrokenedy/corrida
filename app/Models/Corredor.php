@@ -28,4 +28,8 @@ class Corredor extends Model
         'data_nascimento'
     ];
 
+    public function corredoresEmProvas()
+    {
+        return $this->hasMany(CorredorEmProva::class, 'corredor_id', 'id');
+    }
 }

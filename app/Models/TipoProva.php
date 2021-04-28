@@ -18,4 +18,9 @@ class TipoProva extends Model
     protected $fillable = [
         'descricao'
     ];
+
+    public function provas()
+    {
+        return $this->hasMany(Prova::class, 'tipo_prova_id', 'id');
+    }
 }

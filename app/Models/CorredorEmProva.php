@@ -19,4 +19,15 @@ class CorredorEmProva extends Model
         'corredor_id',
         'prova_id'
     ];
+
+
+    public function corredores()
+    {
+        return $this->belongsTo(Corredor::class, 'corredor_id', 'id');
+    }
+
+    public function provas()
+    {
+        return $this->belongsTo(Prova::class, 'prova_id', 'id');
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CorredorController;
+use App\Http\Controllers\CorredorEmProvaController;
 use App\Http\Controllers\ProvaController;
 use App\Http\Controllers\TipoClassificacaoController;
 use App\Http\Controllers\TipoProvaController;
@@ -29,6 +30,7 @@ Route::get('/', function () {
 
 
 Route::apiResources(['tipo-classificacao' => TipoClassificacaoController::class]);
+Route::apiResources(['corredor-em-prova' => CorredorEmProvaController::class]);
 Route::apiResources(['tipo-prova' => TipoProvaController::class]);
 Route::apiResources(['corredor' => CorredorController::class]);
 Route::apiResources(['prova' => ProvaController::class]);
