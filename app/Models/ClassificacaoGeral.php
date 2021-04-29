@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resultado extends Model
+class ClassificacaoGeral extends Model
 {
     use HasFactory;
 
-    protected $table = 'resultados';
+    protected $table = 'classificacao_geral';
 
     protected $guarded = [
         'id',
     ];
 
     protected $fillable = [
+        'posicao',
         'corredor_id',
         'prova_id',
-        'inicio_prova',
-        'conclusao_prova',
     ];
 
     public function corredores()

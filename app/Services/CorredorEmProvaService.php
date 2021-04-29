@@ -6,6 +6,7 @@ use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\ProvaRepository;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class CorredorEmProvaService
 {
@@ -19,7 +20,7 @@ class CorredorEmProvaService
     }
 
 
-    public function listar()
+    public function listar(): Collection
     {
         return $this->repository->all();
     }
@@ -27,7 +28,6 @@ class CorredorEmProvaService
 
     public function criar(array $dados = []): bool
     {
-
         $corredorCadastradoEmProvaParaMesmaData = $this->validaCorredorCadastradoEmProvaParaMesmaData($dados['corredor_id'], $dados['prova_id']);
         if ($corredorCadastradoEmProvaParaMesmaData) {
             throw new Exception('Corredor já possui uma prova para esta data.');
@@ -65,7 +65,7 @@ class CorredorEmProvaService
     }
 
 
-    private function validaCorredorCadastradoEmProvaParaMesmaData($idCorredor, $idProva): bool
+    private function validaCorredorCadastradoEmProvaParaMesmaData(int $idCorredor, int $idProva): bool
     {
         $provasDoCorredor = $this->repository->consultaProvasDoCorredor($idCorredor);
         if ($provasDoCorredor) {
@@ -83,4 +83,6 @@ class CorredorEmProvaService
 
         return false;
     }
+
+   
 }

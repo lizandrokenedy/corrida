@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             TipoProvaSeeder::class,
-            TipoClassificacaoSeeder::class,
         ]);
     }
 }

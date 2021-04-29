@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResultadoRequest;
+use App\Services\CorredorEmProvaService;
 use App\Services\ResultadoService;
 use Exception;
 use Illuminate\Http\Request;
@@ -10,6 +11,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ResultadoController extends Controller
 {
+
+    private $resultadoService;
+
     public function __construct()
     {
         $this->resultadoService = new ResultadoService;

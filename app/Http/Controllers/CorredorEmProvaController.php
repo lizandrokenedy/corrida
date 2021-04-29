@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 class CorredorEmProvaController extends Controller
 {
+
+    private $corredorEmProvaService;
+
     public function __construct()
     {
         $this->corredorEmProvaService = new CorredorEmProvaService;

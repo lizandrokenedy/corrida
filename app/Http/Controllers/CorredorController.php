@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Validator;
 class CorredorController extends Controller
 {
 
+    private $corredorService;
+
     public function __construct()
     {
         $this->corredorService = new CorredorService;

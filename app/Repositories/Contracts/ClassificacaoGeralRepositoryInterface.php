@@ -5,7 +5,7 @@ namespace App\Repositories\Contracts;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface ClassificacaoRepositoryInterface
+interface ClassificacaoGeralRepositoryInterface
 {
     public function all(string $column = 'id', string $order = 'ASC'): Collection;
     public function paginate(int $paginate = 10, string $column = 'id', string $order = 'ASC'): LengthAwarePaginator;
@@ -14,4 +14,6 @@ interface ClassificacaoRepositoryInterface
     public function find(int $id);
     public function update(array $data, int $id): bool;
     public function delete(int $id): bool;
+    public function consultaUltimaPosicaoInseridaPorProva(int $idProva): int;
+    public function limparClassificacoesPorProva(int $idProva): bool;
 }

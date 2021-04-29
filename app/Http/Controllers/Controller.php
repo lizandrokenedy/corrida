@@ -18,11 +18,11 @@ class Controller extends BaseController
 
     public function responseDataSuccess($data = [], $msg = 'Operação realizada com sucesso.', $status = 200)
     {
-        return response()->json(['data' => $data, 'mensagem' => $msg, 'success' => true,], $status);
+        return response()->json(['data' => $data, 'mensagem' => $msg, 'sucesso' => true,], $status);
     }
 
     public function responseError($msg = 'Erro ao realizar operação.', $status = 400)
     {
-        return response()->json(['mensagem' => $msg, 'error' => true], $status);
+        return response()->json(['mensagem' => $msg, 'sucesso' => false], $status);
     }
 }

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Validator;
 
 class ProvaController extends Controller
 {
+
+    private $provaService;
+
     public function __construct()
     {
         $this->provaService = new ProvaService;

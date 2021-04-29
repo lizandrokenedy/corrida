@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResultados extends Migration
+class CreateClassificacaoPorIdadeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateResultados extends Migration
      */
     public function up()
     {
-        Schema::create('resultados', function (Blueprint $table) {
+        Schema::create('classificacao_por_idade', function (Blueprint $table) {
             $table->id();
+            $table->string('faixa');
+            $table->integer('posicao');
             $table->unsignedBigInteger('corredor_id');
             $table->unsignedBigInteger('prova_id');
-            $table->dateTime('inicio_prova');
-            $table->dateTime('conclusao_prova');
             $table->foreign('corredor_id')->references('id')->on('corredores');
             $table->foreign('prova_id')->references('id')->on('provas');
             $table->timestamps();
@@ -32,6 +32,6 @@ class CreateResultados extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resultados');
+        Schema::dropIfExists('classificacao_por_idade');
     }
 }

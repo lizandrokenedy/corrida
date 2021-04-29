@@ -24,10 +24,7 @@ class ClassificacaoRequest extends FormRequest
     public function rules()
     {
         return [
-            'posicao' => 'required|integer',
-            'corredor_id' => 'required|integer|exists:corredores,id',
             'prova_id' => 'required|integer|exists:provas,id',
-            'tipo_classificacao_id' => 'required|integer|exists:tipos_classificacoes,id',
         ];
     }
 }

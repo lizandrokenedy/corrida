@@ -15,4 +15,5 @@ interface CorredorEmProvaRepositoryInterface
     public function update(array $data, int $id): bool;
     public function delete(int $id): bool;
     public function consultaProvasDoCorredor(int $idCorredor): Collection;
+    public function consultaProvaDoCorredor(int $idCorredor, int $idProva): Collection;
 }

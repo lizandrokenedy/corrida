@@ -2,17 +2,20 @@
 
 namespace App\Services;
 
-use App\Repositories\Eloquent\ClassificacaoRepository;
+use App\Repositories\Eloquent\ClassificacaoGeralRepository;
+use App\Repositories\Eloquent\ProvaRepository;
+use App\Repositories\Eloquent\ResultadoRepository;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
-class ClassificacaoService
+class ClassificacaoGeralService
 {
 
     private $repository;
 
     public function __construct()
     {
-        $this->repository = new ClassificacaoRepository();
+        $this->repository = new ClassificacaoGeralRepository();
     }
 
 
@@ -55,13 +58,23 @@ class ClassificacaoService
         return $registro;
     }
 
-    public function classificacoesPorIdade()
+    public function gerarClassificacao(int $idProva): bool
     {
+        $this->repository->limparClassificacoesPorProva($idProva);
 
-    }
+        $listaDeResultadosCorredores = (new ResultadoRepository())->listaDeResultadosPorProva($idProva);
 
-    public function classificacoesGerais()
-    {
-        
+        $posicao = 1;
+
+        foreach ($listaDeResultadosCorredores as $corredor) {
+            $this->repository->create([
+                'posicao' => $posicao,
+                'corredor_id' => $corredor->corredor_id,
+                'prova_id' => $corredor->prova_id,
+            ]);
+
+            $posicao++;
+        }
+        return true;
     }
 }

@@ -26,8 +26,8 @@ class ResultadoRequest extends FormRequest
         return [
             'corredor_id' => 'required|integer|exists:corredores,id',
             'prova_id' => 'required|integer|exists:provas,id',
-            'hora_inicio_prova' => 'required|datetime',
-            'hora_conclusao_prova' => 'required|datetime',
+            'inicio_prova' => 'required|date',
+            'conclusao_prova' => 'required|date',
         ];
     }
 }
