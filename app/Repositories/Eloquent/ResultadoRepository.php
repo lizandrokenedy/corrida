@@ -12,6 +12,17 @@ class ResultadoRepository extends AbstractRepository implements ResultadoReposit
 
 
     /**
+     * Undocumented function
+     *
+     * @param integer $idCorredor
+     * @return Collection
+     */
+    public function consultaResultadosDoCorredor(int $idCorredor): Collection
+    {
+        return $this->model::where('corredor_id', $idCorredor)->get();
+    }
+
+    /**
      * Consulta o resultado de uma prova do corredor
      *
      * @param integer $idProva

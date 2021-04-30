@@ -119,7 +119,7 @@ class ResultadoService
      */
     public function deletar(int $id): bool
     {
-        $registro = $this->repository->delete($id);
+        $registro = $this->repository->delete($id);;
 
         if (!$registro) {
             throw new Exception('Registro não encontrado.');

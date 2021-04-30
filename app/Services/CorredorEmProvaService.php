@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\ProvaRepository;
+use App\Repositories\Eloquent\ResultadoRepository;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -48,15 +49,34 @@ class CorredorEmProvaService
      */
     public function deletar(int $id): bool
     {
-        $registro = $this->repository->delete($id);
+
+        $registro = $this->repository->find($id);
 
         if (!$registro) {
             throw new Exception('Registro não encontrado.');
         }
 
-        return $registro;
+        $corredorPossuiAlgumResultado = $this->validaSeCorredorPossuiResultadosGeradoParaProva($registro->prova_id, $registro->corredor_id);
+
+        if ($corredorPossuiAlgumResultado) {
+            throw new Exception('Não é possível excluir o corredor desta prova, pois o mesmo já possui resultado gerado.');
+        }
+
+        return $this->repository->delete($id);
     }
 
+
+    /**
+     * Valida se o corredor possui algum resultado gerado para prova
+     *
+     * @param integer $idProva
+     * @param integer $idCorredor
+     * @return boolean
+     */
+    private function validaSeCorredorPossuiResultadosGeradoParaProva(int $idProva, int $idCorredor): bool
+    {
+        return (new ResultadoRepository())->consultaResultadoProvaCorredor($idProva, $idCorredor)->count() > 0 ? true : false;
+    }
 
     /**
      * Checa se o corredor já possui uma prova para o mesmo dia

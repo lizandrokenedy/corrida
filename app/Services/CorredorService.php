@@ -87,6 +87,12 @@ class CorredorService
         return $registro;
     }
 
+    /**
+     * Valida se o corredor está cadastrado para alguma prova
+     *
+     * @param integer $idCorredor
+     * @return boolean
+     */
     private function validaSeCorredorEstaCadastradoParaAlgumaProva(int $idCorredor): bool
     {
         return (new CorredorEmProvaRepository())->consultaProvasDoCorredor($idCorredor)->count() > 0 ? true : false;

@@ -17,4 +17,5 @@ interface ResultadoRepositoryInterface
     public function consultaResultadoProvaCorredor(int $idProva, int $idCorredor): Collection;
     public function consultaResultadoGeral(int $idProva): Collection;
     public function consultaResultadoPorFaixaDeIdade(int $idProva, int $faixaInicial, int $faixaFinal): Collection;
+    public function consultaResultadosDoCorredor(int $idCorredor): Collection;
 }
