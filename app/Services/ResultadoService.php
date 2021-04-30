@@ -93,42 +93,6 @@ class ResultadoService
     }
 
     /**
-     * Atualiza um resultado
-     *
-     * @param array $dados
-     * @param integer $id
-     * @return boolean
-     */
-    public function atualizar(array $dados = [], int $id): bool
-    {
-
-        $registro = $this->repository->update($dados, $id);
-
-        if (!$registro) {
-            throw new Exception('Registro não encontrado.');
-        }
-
-        return $registro;
-    }
-
-    /**
-     * Deleta um resultado
-     *
-     * @param integer $id
-     * @return boolean
-     */
-    public function deletar(int $id): bool
-    {
-        $registro = $this->repository->delete($id);;
-
-        if (!$registro) {
-            throw new Exception('Registro não encontrado.');
-        }
-
-        return $registro;
-    }
-
-    /**
      * Função que valida se o corredor está cadastrado na prova para gerar resultado
      *
      * @param integer $idProva

@@ -20,6 +20,11 @@ class CorredorEmProvaService
         $this->repositoryProva = new ProvaRepository();
     }
 
+    /**
+     * Listar todos
+     *
+     * @return Collection
+     */
     public function listar(): Collection
     {
         return $this->repository->all();

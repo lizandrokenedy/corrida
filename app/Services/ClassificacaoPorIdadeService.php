@@ -18,7 +18,12 @@ class ClassificacaoPorIdadeService
     }
 
 
-    public function listar()
+    /**
+     * Listar todas
+     *
+     * @return Collection
+     */
+    public function listar(): Collection
     {
         return $this->repository->all();
     }
@@ -32,23 +37,6 @@ class ClassificacaoPorIdadeService
     public function criar(array $dados = []): bool
     {
         return $this->repository->create($dados);
-    }
-
-    /**
-     * Deleta um registro por id
-     *
-     * @param integer $id
-     * @return boolean
-     */
-    public function deletar(int $id): bool
-    {
-        $registro = $this->repository->delete($id);
-
-        if (!$registro) {
-            throw new Exception('Registro não encontrado.');
-        }
-
-        return $registro;
     }
 
     /**
