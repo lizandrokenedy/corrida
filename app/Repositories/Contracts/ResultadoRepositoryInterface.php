@@ -16,4 +16,5 @@ interface ResultadoRepositoryInterface
     public function delete(int $id): bool;
     public function consultaResultadoProvaCorredor(int $idProva, int $idCorredor): Collection;
     public function consultaResultadoGeral(int $idProva): Collection;
+    public function consultaResultadoPorFaixaDeIdade(int $idProva, int $faixaInicial, int $faixaFinal): Collection;
 }

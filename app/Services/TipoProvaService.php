@@ -22,16 +22,35 @@ class TipoProvaService
     }
 
 
+    /**
+     * Cria um registro
+     *
+     * @param array $dados
+     * @return boolean
+     */
     public function criar(array $dados = []): bool
     {
         return $this->repository->create($dados);
     }
 
+    /**
+     * Obtem um registro por id
+     *
+     * @param integer $id
+     * @return void
+     */
     public function obterPorId(int $id)
     {
         return $this->repository->find($id);
     }
 
+    /**
+     * Atualiza um registro
+     *
+     * @param array $dados
+     * @param integer $id
+     * @return boolean
+     */
     public function atualizar(array $dados = [], int $id): bool
     {
 
@@ -44,6 +63,12 @@ class TipoProvaService
         return $registro;
     }
 
+    /**
+     * Deleta um registro
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function deletar(int $id): bool
     {
         $registro = $this->repository->delete($id);

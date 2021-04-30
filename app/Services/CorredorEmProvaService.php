@@ -19,13 +19,17 @@ class CorredorEmProvaService
         $this->repositoryProva = new ProvaRepository();
     }
 
-
     public function listar(): Collection
     {
         return $this->repository->all();
     }
 
-
+    /**
+     * Adiciona o corredor a uma prova
+     *
+     * @param array $dados
+     * @return boolean
+     */
     public function criar(array $dados = []): bool
     {
         $corredorCadastradoEmProvaParaMesmaData = $this->validaCorredorCadastradoEmProvaParaMesmaData($dados['corredor_id'], $dados['prova_id']);
@@ -36,23 +40,12 @@ class CorredorEmProvaService
         return $this->repository->create($dados);
     }
 
-    public function obterPorId(int $id)
-    {
-        return $this->repository->find($id);
-    }
-
-    public function atualizar(array $dados = [], int $id): bool
-    {
-
-        $registro = $this->repository->update($dados, $id);
-
-        if (!$registro) {
-            throw new Exception('Registro não encontrado.');
-        }
-
-        return $registro;
-    }
-
+    /**
+     * Deleta um registro por id
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function deletar(int $id): bool
     {
         $registro = $this->repository->delete($id);
@@ -65,6 +58,13 @@ class CorredorEmProvaService
     }
 
 
+    /**
+     * Checa se o corredor já possui uma prova para o mesmo dia
+     *
+     * @param integer $idCorredor
+     * @param integer $idProva
+     * @return boolean
+     */
     private function validaCorredorCadastradoEmProvaParaMesmaData(int $idCorredor, int $idProva): bool
     {
         $provasDoCorredor = $this->repository->consultaProvasDoCorredor($idCorredor);
@@ -83,6 +83,4 @@ class CorredorEmProvaService
 
         return false;
     }
-
-   
 }

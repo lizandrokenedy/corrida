@@ -20,17 +20,35 @@ class ProvaService
         return $this->repository->all();
     }
 
-
+    /**
+     * Cria um registro de prova
+     *
+     * @param array $dados
+     * @return boolean
+     */
     public function criar(array $dados = []): bool
     {
         return $this->repository->create($dados);
     }
 
+    /**
+     * Obtem uma prova por id
+     *
+     * @param integer $id
+     * @return void
+     */
     public function obterPorId(int $id)
     {
         return $this->repository->find($id);
     }
 
+    /**
+     * Atualiza um registro de prova
+     *
+     * @param array $dados
+     * @param integer $id
+     * @return boolean
+     */
     public function atualizar(array $dados = [], int $id): bool
     {
 
@@ -43,6 +61,12 @@ class ProvaService
         return $registro;
     }
 
+    /**
+     * Deleta um registro de prova
+     *
+     * @param integer $id
+     * @return boolean
+     */
     public function deletar(int $id): bool
     {
         $registro = $this->repository->delete($id);

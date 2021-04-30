@@ -10,6 +10,14 @@ class ResultadoRepository extends AbstractRepository implements ResultadoReposit
 {
     protected $model = Resultado::class;
 
+
+    /**
+     * Consulta o resultado de uma prova do corredor
+     *
+     * @param integer $idProva
+     * @param integer $idCorredor
+     * @return Collection
+     */
     public function consultaResultadoProvaCorredor(int $idProva, int $idCorredor): Collection
     {
         return $this->model::where('prova_id', $idProva)
@@ -17,6 +25,12 @@ class ResultadoRepository extends AbstractRepository implements ResultadoReposit
             ->get();
     }
 
+    /**
+     * Consulta resultados gerais
+     *
+     * @param integer $idProva
+     * @return Collection
+     */
     public function consultaResultadoGeral(int $idProva): Collection
     {
         return $this->model::where('prova_id', $idProva)
@@ -24,11 +38,18 @@ class ResultadoRepository extends AbstractRepository implements ResultadoReposit
             ->get();
     }
 
-
+    /**
+     *  Consulta resultados por faixa de idade
+     *
+     * @param integer $idProva
+     * @param integer $faixaInicial
+     * @param integer $faixaFinal
+     * @return Collection
+     */
     public function consultaResultadoPorFaixaDeIdade(int $idProva, int $faixaInicial, int $faixaFinal = 0): Collection
     {
-        return $this->model::selectRaw('
-            corredor_id,
+        return $this->model::selectRaw(
+            'corredor_id,
             prova_id,
             YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(data_nascimento))) as idade'
         )

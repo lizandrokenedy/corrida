@@ -128,6 +128,13 @@ class ResultadoService
         return $registro;
     }
 
+    /**
+     * Função que valida se o corredor está cadastrado na prova para gerar resultado
+     *
+     * @param integer $idProva
+     * @param integer $idCorredor
+     * @return boolean
+     */
     private function validaCorredorSemCadastroParaProva(int $idProva, int $idCorredor): bool
     {
         return (int)(new CorredorEmProvaRepository())->consultaProvaDoCorredor($idProva, $idCorredor)->count() === 0 ? true : false;

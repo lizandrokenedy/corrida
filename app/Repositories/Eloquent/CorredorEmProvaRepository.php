@@ -10,7 +10,12 @@ class CorredorEmProvaRepository extends AbstractRepository implements CorredorEm
 {
     protected $model = CorredorEmProva::class;
 
-
+    /**
+     * Consulta todas as provas do corredor
+     *
+     * @param integer $idCorredor
+     * @return Collection
+     */
     public function consultaProvasDoCorredor(int $idCorredor): Collection
     {
         return $this->model::join('corredores', 'corredores.id', 'corredores_em_provas.corredor_id')
@@ -19,6 +24,13 @@ class CorredorEmProvaRepository extends AbstractRepository implements CorredorEm
             ->get();
     }
 
+    /**
+     * Consulta uma prova do corredor
+     *
+     * @param integer $idProva
+     * @param integer $idCorredor
+     * @return Collection
+     */
     public function consultaProvaDoCorredor(int $idProva, int $idCorredor): Collection
     {
         return $this->model::where('corredor_id', $idCorredor)
