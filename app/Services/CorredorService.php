@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\CorredorRepository;
 use Exception;
 
@@ -70,6 +71,13 @@ class CorredorService
      */
     public function deletar(int $id): bool
     {
+
+        $corredorPossuiCadastroEmProva = $this->validaSeCorredorEstaCadastradoParaAlgumaProva($id);
+
+        if ($corredorPossuiCadastroEmProva) {
+            throw new Exception('Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas');
+        }
+
         $registro = $this->repository->delete($id);
 
         if (!$registro) {
@@ -77,5 +85,10 @@ class CorredorService
         }
 
         return $registro;
+    }
+
+    private function validaSeCorredorEstaCadastradoParaAlgumaProva(int $idCorredor): bool
+    {
+        return (new CorredorEmProvaRepository())->consultaProvasDoCorredor($idCorredor)->count() > 0 ? true : false;
     }
 }
