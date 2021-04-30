@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\MaiorDeIdade;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CorredorRequest extends FormRequest
@@ -26,8 +27,7 @@ class CorredorRequest extends FormRequest
         return [
             'nome' => 'required|string|max:255',
             'cpf' => 'required|string|max:11|unique:corredores,cpf,' . $id,
-            'data_nascimento' => 'required|date',
-            'idade' => 'required|integer',
+            'data_nascimento' => ['required', 'date', new MaiorDeIdade],
         ];
     }
 }

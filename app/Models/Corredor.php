@@ -21,7 +21,6 @@ class Corredor extends Model
         'nome',
         'cpf',
         'data_nascimento',
-        'idade',
     ];
 
     protected $dates = [

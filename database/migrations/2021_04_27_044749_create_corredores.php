@@ -18,7 +18,6 @@ class CreateCorredores extends Migration
             $table->string('nome');
             $table->string('cpf', 11);
             $table->date('data_nascimento');
-            $table->smallInteger('idade');
             $table->timestamps();
         });
     }

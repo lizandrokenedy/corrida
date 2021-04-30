@@ -14,6 +14,5 @@ interface ClassificacaoGeralRepositoryInterface
     public function find(int $id);
     public function update(array $data, int $id): bool;
     public function delete(int $id): bool;
-    public function consultaUltimaPosicaoInseridaPorProva(int $idProva): int;
     public function limparClassificacoesPorProva(int $idProva): bool;
 }

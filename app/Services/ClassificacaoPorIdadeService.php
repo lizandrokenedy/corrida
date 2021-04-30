@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Repositories\Eloquent\ClassificacaoPorIdadeRepository;
+use App\Repositories\Eloquent\ResultadoRepository;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class ClassificacaoPorIdadeService
 {
@@ -55,7 +57,69 @@ class ClassificacaoPorIdadeService
         return $registro;
     }
 
-    public function gerarClassificacao()
+    private function salvarPosicoes(Collection $listaDeResultadosCorredores): bool
     {
+        $posicao = 1;
+
+        foreach ($listaDeResultadosCorredores as $resultado) {
+            $this->repository->create([
+                'idade' => $resultado->idade,
+                'posicao' => $posicao,
+                'corredor_id' => $resultado->corredor_id,
+                'prova_id' => $resultado->prova_id,
+            ]);
+
+            $posicao++;
+        }
+
+        return true;
+    }
+
+    public function gerarClassificacao(int $idProva): bool
+    {
+        $this->repository->limparClassificacoesPorProva($idProva);
+
+        $this->gerarClassificacao18a25Anos($idProva);
+        $this->gerarClassificacao26a35Anos($idProva);
+        $this->gerarClassificacao36a45Anos($idProva);
+        $this->gerarClassificacao46a55Anos($idProva);
+        $this->gerarClassificacaoAcimaDos56Anos($idProva);
+
+        return true;
+    }
+
+    public function gerarClassificacao18a25Anos(int $idProva): bool
+    {
+        $resultado = (new ResultadoRepository())->consultaResultadoPorFaixaDeIdade($idProva, 18, 25);
+
+        return $this->salvarPosicoes($resultado);
+    }
+
+    public function gerarClassificacao26a35Anos(int $idProva): bool
+    {
+        $resultado = (new ResultadoRepository())->consultaResultadoPorFaixaDeIdade($idProva, 26, 35);
+
+        return $this->salvarPosicoes($resultado);
+    }
+
+    public function gerarClassificacao36a45Anos($idProva): bool
+    {
+        $resultado = (new ResultadoRepository())->consultaResultadoPorFaixaDeIdade($idProva, 36, 45);
+
+        return $this->salvarPosicoes($resultado);
+    }
+
+    public function gerarClassificacao46a55Anos($idProva): bool
+    {
+        $resultado = (new ResultadoRepository())->consultaResultadoPorFaixaDeIdade($idProva, 46, 55);
+
+        return $this->salvarPosicoes($resultado);
+    }
+
+    public function gerarClassificacaoAcimaDos56Anos($idProva): bool
+    {
+        $resultado = (new ResultadoRepository())->consultaResultadoPorFaixaDeIdade($idProva, 56);
+
+        return $this->salvarPosicoes($resultado);
     }
 }

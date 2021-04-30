@@ -15,5 +15,5 @@ interface ResultadoRepositoryInterface
     public function update(array $data, int $id): bool;
     public function delete(int $id): bool;
     public function consultaResultadoProvaCorredor(int $idProva, int $idCorredor): Collection;
-    public function listaDeResultadosPorProva(int $idProva): Collection;
+    public function consultaResultadoGeral(int $idProva): Collection;
 }

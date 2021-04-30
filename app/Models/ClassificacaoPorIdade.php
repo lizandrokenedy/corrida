@@ -16,7 +16,7 @@ class ClassificacaoPorIdade extends Model
     ];
 
     protected $fillable = [
-        'faixa',
+        'idade',
         'posicao',
         'corredor_id',
         'prova_id',

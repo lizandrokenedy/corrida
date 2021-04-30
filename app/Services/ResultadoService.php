@@ -51,7 +51,7 @@ class ResultadoService
      */
     public function resultadosPorProva(int $idProva): Collection
     {
-        return $this->repository->listaDeResultadosPorProva($idProva);
+        return $this->repository->consultaResultadoGeral($idProva);
     }
 
     /**

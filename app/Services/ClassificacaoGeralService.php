@@ -62,19 +62,25 @@ class ClassificacaoGeralService
     {
         $this->repository->limparClassificacoesPorProva($idProva);
 
-        $listaDeResultadosCorredores = (new ResultadoRepository())->listaDeResultadosPorProva($idProva);
+        $listaDeResultadosCorredores = (new ResultadoRepository())->consultaResultadoGeral($idProva);
 
+        return $this->salvarPosicoes($listaDeResultadosCorredores);
+    }
+
+    private function salvarPosicoes(Collection $listaDeResultadosCorredores): bool
+    {
         $posicao = 1;
 
-        foreach ($listaDeResultadosCorredores as $corredor) {
+        foreach ($listaDeResultadosCorredores as $resultado) {
             $this->repository->create([
                 'posicao' => $posicao,
-                'corredor_id' => $corredor->corredor_id,
-                'prova_id' => $corredor->prova_id,
+                'corredor_id' => $resultado->corredor_id,
+                'prova_id' => $resultado->prova_id,
             ]);
 
             $posicao++;
         }
+
         return true;
     }
 }

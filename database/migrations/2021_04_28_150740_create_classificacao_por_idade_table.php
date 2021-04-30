@@ -15,8 +15,8 @@ class CreateClassificacaoPorIdadeTable extends Migration
     {
         Schema::create('classificacao_por_idade', function (Blueprint $table) {
             $table->id();
-            $table->string('faixa');
             $table->integer('posicao');
+            $table->smallInteger('idade');
             $table->unsignedBigInteger('corredor_id');
             $table->unsignedBigInteger('prova_id');
             $table->foreign('corredor_id')->references('id')->on('corredores');

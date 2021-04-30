@@ -24,12 +24,6 @@ class CorredorService
 
     public function criar(array $dados = []): bool
     {
-        $corredorMenorDeIdade = $this->validaCorredorMenorDeIdade($dados['idade']);
-
-        if ($corredorMenorDeIdade) {
-            throw new Exception('Não é permitido o cadastro de menores de idade,');
-        }
-
         return $this->repository->create($dados);
     }
 
@@ -59,14 +53,5 @@ class CorredorService
         }
 
         return $registro;
-    }
-
-    private function validaCorredorMenorDeIdade(int $idade): bool
-    {
-        if ($idade < 18) {
-            return true;
-        }
-
-        return false;
     }
 }

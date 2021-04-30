@@ -10,9 +10,8 @@ class ClassificacaoPorIdadeRepository extends AbstractRepository implements Clas
     protected $model = ClassificacaoPorIdade::class;
 
 
-    public function consultaClassificacoes()
+    public function limparClassificacoesPorProva(int $idProva): bool
     {
-        // $this->model::with('provas')
-        // ->where('tipo_prova_id')
+        return $this->model::where('prova_id', $idProva)->delete();
     }
 }
