@@ -21,11 +21,30 @@ class ClassificacaoPorIdadeService
     /**
      * Listar todas
      *
-     * @return Collection
+     * @return array
      */
-    public function listar(): Collection
+    public function listar(): array
     {
-        return $this->repository->all();
+        $classificados = $this->repository->consultaClassificacaoPorIdade();
+
+        return $this->formataListaDeClassificados($classificados);
+    }
+
+    private function formataListaDeClassificados($classificados)
+    {
+        $listaFormatada = [];
+        foreach ($classificados as $classificado) {
+            $corredor = [
+                'posicao' => $classificado->posicao,
+                'idade' => $classificado->idade,
+                'nome' => $classificado->nome,
+                'cpf' => $classificado->cpf,
+            ];
+
+            $listaFormatada[$classificado->descricao]['corredores'][$classificado->faixa][] = $corredor;
+        }
+
+        return $listaFormatada;
     }
 
     /**

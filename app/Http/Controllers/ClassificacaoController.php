@@ -43,4 +43,34 @@ class ClassificacaoController extends Controller
             return $this->responseError($e->getMessage());
         }
     }
+
+    /**
+     * Consulta classificação geral
+     *
+     * @param [type] $idProva
+     * @return Response
+     */
+    public function consultaClassificacaoGeral()
+    {
+        try {
+            return $this->responseDataSuccess([$this->classificacaoGeralService->listar()]);
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+    }
+
+    /**
+     * Consulta classificação por idade
+     *
+     * @param [type] $idProva
+     * @return Response
+     */
+    public function consultaClassificacaoPorIdade()
+    {
+        try {
+            return $this->responseDataSuccess($this->classificacaoPorIdadeService->listar());
+        } catch (Exception $e) {
+            return $this->responseError($e->getMessage());
+        }
+    }
 }

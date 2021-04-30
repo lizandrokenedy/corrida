@@ -40,4 +40,6 @@ Route::apiResources(['prova' => ProvaController::class]);
 
 Route::prefix('classificacao')->group(function () {
     Route::get('gerar-classificacao/{prova_id}', [ClassificacaoController::class, 'gerarClassificacao']);
+    Route::get('geral', [ClassificacaoController::class, 'consultaClassificacaoGeral']);
+    Route::get('por-idade', [ClassificacaoController::class, 'consultaClassificacaoPorIdade']);
 });
