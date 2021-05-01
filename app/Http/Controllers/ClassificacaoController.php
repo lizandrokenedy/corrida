@@ -25,6 +25,7 @@ class ClassificacaoController extends Controller
     /**
      * @OA\Post(
      *   path="/api/classificacao/gerar",
+     *   tags={"Classificação"},
      *   summary="Gera classificações gerais e por idade",
      * @OA\RequestBody(
      *    required=true,
@@ -88,6 +89,7 @@ class ClassificacaoController extends Controller
     /**
      * @OA\Get(
      *   path="/api/classificacao/geral",
+     *   tags={"Classificação"},
      *   summary="Lista de classificados geral",
      *   @OA\Response(
      *    response=200,
@@ -141,6 +143,7 @@ class ClassificacaoController extends Controller
     /**
      * @OA\Get(
      *   path="/api/classificacao/por-idade",
+     *   tags={"Classificação"},
      *   summary="Lista de classificados por faixa de idade",
      *   @OA\Response(
      *    response=200,

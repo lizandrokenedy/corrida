@@ -12,6 +12,9 @@
     "paths": {
         "/api/classificacao/gerar": {
             "post": {
+                "tags": [
+                    "Classificação"
+                ],
                 "summary": "Gera classificações gerais e por idade",
                 "operationId": "App\\Http\\Controllers\\ClassificacaoController::gerarClassificacao",
                 "requestBody": {
@@ -86,6 +89,9 @@
         },
         "/api/classificacao/geral": {
             "get": {
+                "tags": [
+                    "Classificação"
+                ],
                 "summary": "Lista de classificados geral",
                 "operationId": "App\\Http\\Controllers\\ClassificacaoController::consultaClassificacaoGeral",
                 "responses": {
@@ -158,6 +164,9 @@
         },
         "/api/classificacao/por-idade": {
             "get": {
+                "tags": [
+                    "Classificação"
+                ],
                 "summary": "Lista de classificados por faixa de idade",
                 "operationId": "App\\Http\\Controllers\\ClassificacaoController::consultaClassificacaoPorIdade",
                 "responses": {
