@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\ProvaRepository;
 use Exception;
 
@@ -69,12 +70,23 @@ class ProvaService
      */
     public function deletar(int $id): bool
     {
-        $registro = $this->repository->delete($id);
+
+        $registro = $this->repository->find($id);
 
         if (!$registro) {
             throw new Exception('Registro não encontrado.');
         }
 
-        return $registro;
+        if ($this->validaSeExistemCorredoresCadastradosParaProva($id)) {
+            throw new Exception('Não é possível excluir a prova pois existem corredores cadastrados para ela.');
+        }
+
+        return $this->repository->delete($id);
+    }
+
+    private function validaSeExistemCorredoresCadastradosParaProva(int $idProva): bool
+    {
+        return (new CorredorEmProvaRepository())->consultaQuantidadeDeCorredoresCadastradosParaProva($idProva)->count() > 0 ?
+            true : false;
     }
 }

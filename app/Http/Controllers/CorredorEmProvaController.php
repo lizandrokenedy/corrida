@@ -101,7 +101,7 @@ class CorredorEmProvaController extends Controller
      *              },
      *          "prova_id": {
      *              "O campo prova id é obrigatório.",
-     *              "O campo corredor id selecionado é inválido.",
+     *              "O campo prova id selecionado é inválido.",
      *              },
      *           }
      *         ),

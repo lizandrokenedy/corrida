@@ -72,9 +72,7 @@ class CorredorService
     public function deletar(int $id): bool
     {
 
-        $corredorPossuiCadastroEmProva = $this->validaSeCorredorEstaCadastradoParaAlgumaProva($id);
-
-        if ($corredorPossuiCadastroEmProva) {
+        if ($this->validaSeCorredorEstaCadastradoParaAlgumaProva($id)) {
             throw new Exception('Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas');
         }
 

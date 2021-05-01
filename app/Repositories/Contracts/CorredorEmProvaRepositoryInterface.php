@@ -16,4 +16,5 @@ interface CorredorEmProvaRepositoryInterface
     public function delete(int $id): bool;
     public function consultaProvasDoCorredor(int $idCorredor): Collection;
     public function consultaProvaDoCorredor(int $idCorredor, int $idProva): Collection;
+    public function consultaQuantidadeDeCorredoresCadastradosParaProva(int $idProva): Collection;
 }

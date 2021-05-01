@@ -747,7 +747,7 @@
                                                 ],
                                                 "prova_id": [
                                                     "O campo prova id é obrigatório.",
-                                                    "O campo corredor id selecionado é inválido."
+                                                    "O campo prova id selecionado é inválido."
                                                 ]
                                             }
                                         },
@@ -814,6 +814,321 @@
                                         "mensagem": {
                                             "type": "string",
                                             "example": "Não é possível excluir o corredor desta prova, pois o mesmo já possui resultado gerado."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/prova": {
+            "get": {
+                "tags": [
+                    "Prova"
+                ],
+                "summary": "Lista de provas",
+                "operationId": "App\\Http\\Controllers\\ProvaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "tipo_prova_id": 2,
+                                                    "data": "2021-11-07 08:00:00",
+                                                    "created_at": "2021-04-30T00:39:49.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:49.000000Z"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "tipo_prova_id": 3,
+                                                    "data": "2021-11-07 08:00:00",
+                                                    "created_at": "2021-04-30T00:39:49.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:49.000000Z"
+                                                }
+                                            ]
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Prova"
+                ],
+                "summary": "Cria prova",
+                "operationId": "App\\Http\\Controllers\\ProvaController::store",
+                "requestBody": {
+                    "description": "Exemplo criar uma prova",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tipo_prova_id",
+                                    "data"
+                                ],
+                                "properties": {
+                                    "tipo_prova_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "data": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2021-05-31 08:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "tipo_prova_id": [
+                                                    "O campo tipo prova id é obrigatório.",
+                                                    "O campo tipo prova id selecionado é inválido."
+                                                ],
+                                                "data": [
+                                                    "O campo data é obrigatório.",
+                                                    "O campo data não é uma data válida."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/prova/{id}": {
+            "put": {
+                "tags": [
+                    "Prova"
+                ],
+                "summary": "Atualiza prova",
+                "operationId": "App\\Http\\Controllers\\ProvaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID prova",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Exemplo para atualizar uma prova",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "tipo_prova_id",
+                                    "data"
+                                ],
+                                "properties": {
+                                    "tipo_prova_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "data": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2021-05-31 10:00"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "tipo_prova_id": [
+                                                    "O campo tipo prova id selecionado é inválido."
+                                                ],
+                                                "data_nascimento": [
+                                                    "O campo data não é uma data válida."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Prova"
+                ],
+                "summary": "Deleta prova",
+                "operationId": "App\\Http\\Controllers\\ProvaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID prova",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Não é possível excluir a prova pois existem corredores cadastrados para ela."
                                         },
                                         "sucesso": {
                                             "type": "bool",

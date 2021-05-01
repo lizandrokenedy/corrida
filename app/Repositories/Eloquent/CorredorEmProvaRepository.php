@@ -37,4 +37,16 @@ class CorredorEmProvaRepository extends AbstractRepository implements CorredorEm
             ->where('prova_id', $idProva)
             ->get();
     }
+
+
+    /**
+     * Consulta quantidade de corredores cadastrados para para prova
+     *
+     * @param integer $idProva
+     * @return Collection
+     */
+    public function consultaQuantidadeDeCorredoresCadastradosParaProva(int $idProva): Collection
+    {
+        return $this->model::where('prova_id', $idProva)->get();
+    }
 }
