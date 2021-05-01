@@ -30,7 +30,7 @@ class ClassificacaoPorIdadeRepository extends AbstractRepository implements Clas
                 WHEN idade >= 26 and idade <= 35 THEN "26 – 35 anos"
                 WHEN idade >= 36 and idade <= 45 THEN "36 – 45 anos"
                 WHEN idade >= 46 and idade <= 55 THEN "46 – 55 anos"
-                ELSE "Acima de 55 anos"
+                ELSE "Acima de 56 anos"
                 END AS faixa,
             nome,
             idade,

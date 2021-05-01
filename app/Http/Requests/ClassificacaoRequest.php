@@ -27,4 +27,13 @@ class ClassificacaoRequest extends FormRequest
             'prova_id' => 'required|integer|exists:provas,id',
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+            'prova_id.exists' => 'Prova não encontrada.',
+            'prova_id.required' => 'É necessário informar uma prova para gerar as classificações.'
+        ];
+    }
 }

@@ -1,0 +1,259 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Corredores",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
+    "paths": {
+        "/api/classificacao/gerar": {
+            "post": {
+                "summary": "Gera classificações gerais e por idade",
+                "operationId": "App\\Http\\Controllers\\ClassificacaoController::gerarClassificacao",
+                "requestBody": {
+                    "description": "Exemplo para gerar classificações",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "prova_id"
+                                ],
+                                "properties": {
+                                    "prova_id": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "prova_id": [
+                                                    "Prova não encontrada.",
+                                                    "É necessário informar uma prova para gerar as classificações."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/classificacao/geral": {
+            "get": {
+                "summary": "Lista de classificados geral",
+                "operationId": "App\\Http\\Controllers\\ClassificacaoController::consultaClassificacaoGeral",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "3 km": {
+                                                    "corredores": [
+                                                        {
+                                                            "posicao": 1,
+                                                            "nome": "Candidato 1",
+                                                            "cpf": "00000000000"
+                                                        },
+                                                        {
+                                                            "posicao": 2,
+                                                            "nome": "Candidato 2",
+                                                            "cpf": "00000000000"
+                                                        },
+                                                        {
+                                                            "posicao": 3,
+                                                            "nome": "Candidato 3",
+                                                            "cpf": "00000000000"
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/classificacao/por-idade": {
+            "get": {
+                "summary": "Lista de classificados por faixa de idade",
+                "operationId": "App\\Http\\Controllers\\ClassificacaoController::consultaClassificacaoPorIdade",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "3 km": {
+                                                    "corredores": {
+                                                        "18 – 25 anos": [
+                                                            {
+                                                                "posicao": 1,
+                                                                "idade": 24,
+                                                                "nome": "Candidato 1",
+                                                                "cpf": "00000000000"
+                                                            },
+                                                            {
+                                                                "posicao": 2,
+                                                                "idade": 20,
+                                                                "nome": "Candidato 2",
+                                                                "cpf": "00000000000"
+                                                            },
+                                                            {
+                                                                "posicao": 3,
+                                                                "idade": 25,
+                                                                "nome": "Candidato 3",
+                                                                "cpf": "00000000000"
+                                                            }
+                                                        ],
+                                                        "26 – 35 anos": [
+                                                            {
+                                                                "posicao": 1,
+                                                                "idade": 26,
+                                                                "nome": "Candidato 1",
+                                                                "cpf": "00000000000"
+                                                            },
+                                                            {
+                                                                "posicao": 2,
+                                                                "idade": 30,
+                                                                "nome": "Candidato 2",
+                                                                "cpf": "00000000000"
+                                                            }
+                                                        ],
+                                                        "Acima dos 56 anos": [
+                                                            {
+                                                                "posicao": 1,
+                                                                "idade": 60,
+                                                                "nome": "Candidato 1",
+                                                                "cpf": "00000000000"
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

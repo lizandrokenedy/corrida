@@ -1,0 +1,11 @@
+openapi: 3.0.0
+paths:
+  /index:
+    get:
+      description: 'Return a Course´s name'
+      operationId: 'App\Http\Controllers\ClassificacaoController::consultaClassificacaoGeral'
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: 'Missing Data'
