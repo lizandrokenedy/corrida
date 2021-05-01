@@ -314,7 +314,7 @@
                         }
                     },
                     "400": {
-                        "description": "Erro",
+                        "description": "Exemplos de possíveis erros",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -396,7 +396,7 @@
                         }
                     },
                     "400": {
-                        "description": "Erro",
+                        "description": "Exemplos de possíveis erros",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -594,6 +594,226 @@
                                         "mensagem": {
                                             "type": "string",
                                             "example": "Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas"
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/corredor-em-prova": {
+            "get": {
+                "tags": [
+                    "Corredor em Prova"
+                ],
+                "summary": "Lista de corredores cadastrados para provas",
+                "operationId": "App\\Http\\Controllers\\CorredorEmProvaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "corredor_id": 1,
+                                                    "prova_id": 1,
+                                                    "created_at": "2021-04-30T00:40:46.000000Z",
+                                                    "updated_at": "2021-04-30T00:40:46.000000Z"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "corredor_id": 2,
+                                                    "prova_id": 1,
+                                                    "created_at": "2021-04-30T00:40:46.000000Z",
+                                                    "updated_at": "2021-04-30T00:40:46.000000Z"
+                                                }
+                                            ]
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Corredor em Prova"
+                ],
+                "summary": "Cadastra um corredor em uma prova",
+                "operationId": "App\\Http\\Controllers\\CorredorEmProvaController::store",
+                "requestBody": {
+                    "description": "Cadastra um corredor em uma prova",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nome",
+                                    "cpf",
+                                    "data_nascimento"
+                                ],
+                                "properties": {
+                                    "prova_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "corredor_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "corredor_id": [
+                                                    "O campo corredor id é obrigatório.",
+                                                    "O campo corredor id selecionado é inválido."
+                                                ],
+                                                "prova_id": [
+                                                    "O campo prova id é obrigatório.",
+                                                    "O campo corredor id selecionado é inválido."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/corredor-em-prova/{id}": {
+            "delete": {
+                "tags": [
+                    "Corredor em Prova"
+                ],
+                "summary": "Deleta um corredor de uma prova",
+                "operationId": "App\\Http\\Controllers\\CorredorEmProvaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID corredor em prova",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Não é possível excluir o corredor desta prova, pois o mesmo já possui resultado gerado."
                                         },
                                         "sucesso": {
                                             "type": "bool",

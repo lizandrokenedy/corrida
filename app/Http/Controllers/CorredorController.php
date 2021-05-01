@@ -51,7 +51,7 @@ class CorredorController extends Controller
      *   ),
      *   @OA\Response(
      *    response=400,
-     *    description="Erro",
+     *    description="Exemplos de possíveis erros",
      *      @OA\JsonContent(
      *         @OA\Property(property="mensagem", type="string", example="Erro ao realizar operação."),
      *         @OA\Property(property="sucesso", type="bool", example="false")
@@ -94,7 +94,7 @@ class CorredorController extends Controller
      *   ),
      *   @OA\Response(
      *    response=400,
-     *    description="Erro",
+     *    description="Exemplos de possíveis erros",
      *    @OA\JsonContent(
      *         @OA\Property(property="mensagem", type="object", example={
      *          "nome": {
