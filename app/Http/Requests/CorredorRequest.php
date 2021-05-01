@@ -26,7 +26,7 @@ class CorredorRequest extends FormRequest
     {
         return [
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:11|unique:corredores,cpf,' . $id,
+            'cpf' => 'required|string|max:11|min:11|unique:corredores,cpf,' . $id,
             'data_nascimento' => ['required', 'date', new MaiorDeIdade],
         ];
     }

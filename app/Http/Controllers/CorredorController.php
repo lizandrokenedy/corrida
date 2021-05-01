@@ -33,7 +33,6 @@ class CorredorController extends Controller
      *                  "nome": "Lizandro",
      *                  "cpf": "04397588157",
      *                  "data_nascimento": "1994-07-11T03:00:00.000000Z",
-     *                  "idade": 18,
      *                  "created_at": "2021-04-28T21:14:54.000000Z",
      *                  "updated_at": "2021-04-28T21:14:54.000000Z"
      *                },
@@ -42,7 +41,6 @@ class CorredorController extends Controller
      *                  "nome": "Lizandro",
      *                  "cpf": "04397588156",
      *                  "data_nascimento": "1994-07-11T03:00:00.000000Z",
-     *                  "idade": 18,
      *                  "created_at": "2021-04-28T21:15:00.000000Z",
      *                  "updated_at": "2021-04-28T21:15:00.000000Z"
      *                },
@@ -77,7 +75,7 @@ class CorredorController extends Controller
      *   summary="Cria corredor",
      *   @OA\RequestBody(
      *    required=true,
-     *    description="Exemplo para gerar classificações",
+     *    description="Exemplo criar um corredor",
      *    @OA\JsonContent(
      *       required={"nome", "cpf", "data_nascimento"},
      *       @OA\Property(property="nome", type="string", format="string", example="Nome do candidato"),
@@ -97,10 +95,29 @@ class CorredorController extends Controller
      *   @OA\Response(
      *    response=400,
      *    description="Erro",
-     *      @OA\JsonContent(
-     *         @OA\Property(property="mensagem", type="string", example="Erro ao realizar operação."),
-     *         @OA\Property(property="sucesso", type="bool", example="false")
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="object", example={
+     *          "nome": {
+     *              "O campo nome é obrigatório.",
+     *              "O campo nome não pode ser superior a 255 caracteres.",
+     *              "O campo nome deve ser uma string."
+     *              },
+     *          "cpf": {
+     *              "O campo cpf é obrigatório.",
+     *              "O campo cpf já está sendo utilizado.",
+     *              "O campo cpf não pode ser superior a 11 caracteres.",
+     *              "O campo cpf deve ter pelo menos 11 caracteres."
+     *              },
+     *          "data_nascimento": {
+     *              "O campo data nascimento é obrigatório.",
+     *              "Inscrição permitida apenas para maiores de 18 anos.",
+     *              "O campo data nascimento não é uma data válida."
+     *              },
+     *           }
+     *         ),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
      *      )
+     *    )
      *   ),
      * )
      */
@@ -140,11 +157,65 @@ class CorredorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *   path="/api/corredor/{id}",
+     *   tags={"Corredor"},
+     *   summary="Atualiza corredor",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *    * @OA\Parameter(
+     *    description="ID corredor",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     *   ),
+     *   @OA\RequestBody(
+     *    required=true,
+     *    description="Exemplo para atualizar um corredor",
+     *    @OA\JsonContent(
+     *       required={"nome", "cpf", "data_nascimento"},
+     *       @OA\Property(property="nome", type="string", format="string", example="Nome do candidato"),
+     *       @OA\Property(property="cpf", type="string", format="string", example="00000000000"),
+     *       @OA\Property(property="data_nascimento", type="string", format="string", example="1994-11-07")
+     *    ),
+     *  ),
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="object", example={
+     *          "nome": {
+     *              "O campo nome não pode ser superior a 255 caracteres.",
+     *              "O campo nome deve ser uma string."
+     *              },
+     *          "cpf": {
+     *              "O campo cpf já está sendo utilizado.",
+     *              "O campo cpf não pode ser superior a 11 caracteres.",
+     *              "O campo cpf deve ter pelo menos 11 caracteres."
+     *              },
+     *          "data_nascimento": {
+     *              "Inscrição permitida apenas para maiores de 18 anos.",
+     *              "O campo data nascimento não é uma data válida."
+     *              },
+     *           }
+     *         ),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
+     *      )
+     *    )
+     *   ),
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -164,10 +235,40 @@ class CorredorController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *   path="/api/corredor/{id}",
+     *   tags={"Corredor"},
+     *   summary="Deleta corredor",
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *    * @OA\Parameter(
+     *    description="ID corredor",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     *   ),
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas"),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
+     *      )
+     *    )
+     *   ),
+     * )
      */
     public function destroy($id)
     {
