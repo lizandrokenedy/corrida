@@ -22,6 +22,11 @@ class ClassificacaoPorIdadeRepository extends AbstractRepository implements Clas
         return $this->model::where('prova_id', $idProva)->delete();
     }
 
+    /**
+     * Consulta classificação por idade
+     *
+     * @return Collection
+     */
     public function consultaClassificacaoPorIdade(): Collection
     {
         return $this->model::selectRaw('

@@ -30,7 +30,13 @@ class ClassificacaoPorIdadeService
         return $this->formataListaDeClassificados($classificados);
     }
 
-    private function formataListaDeClassificados($classificados)
+    /**
+     * Retorna lista de classificados formatada
+     *
+     * @param [type] $classificados
+     * @return void
+     */
+    private function formataListaDeClassificados(Collection $classificados): array
     {
         $listaFormatada = [];
         foreach ($classificados as $classificado) {

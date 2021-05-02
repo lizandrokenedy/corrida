@@ -10,6 +10,12 @@ class ProvaRepository extends AbstractRepository implements ProvaRepositoryInter
 {
     protected $model = Prova::class;
 
+    /**
+     * Consulta prova por tipo
+     *
+     * @param integer $idTipoProva
+     * @return Collection
+     */
     public function consultaProvasPorTipo(int $idTipoProva): Collection
     {
         return $this->model::where('tipo_prova_id', $idTipoProva)->get();

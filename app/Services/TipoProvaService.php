@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Eloquent\ProvaRepository;
 use App\Repositories\Eloquent\TipoProvaRepository;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class TipoProvaService
 {
@@ -17,7 +18,12 @@ class TipoProvaService
     }
 
 
-    public function listar()
+    /**
+     * Listar todos
+     *
+     * @return Collection
+     */
+    public function listar(): Collection
     {
         return $this->repository->all();
     }
@@ -87,7 +93,12 @@ class TipoProvaService
         return $this->repository->delete($id);
     }
 
-
+    /**
+     * Valida provas relacionadas ao tipo prova
+     *
+     * @param integer $idTipoProva
+     * @return boolean
+     */
     private function validaSeExistemProvasCadastradasPorTipoProva(int $idTipoProva): bool
     {
         return (new ProvaRepository())->consultaProvasPorTipo($idTipoProva)->count() > 0 ? true : false;

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\ProvaRepository;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProvaService
 {
@@ -16,7 +17,12 @@ class ProvaService
     }
 
 
-    public function listar()
+    /**
+     * Listar todos
+     *
+     * @return Collection
+     */
+    public function listar(): Collection
     {
         return $this->repository->all();
     }
@@ -84,6 +90,12 @@ class ProvaService
         return $this->repository->delete($id);
     }
 
+    /**
+     * Valida corredores cadastrados para prova
+     *
+     * @param integer $idProva
+     * @return boolean
+     */
     private function validaSeExistemCorredoresCadastradosParaProva(int $idProva): bool
     {
         return (new CorredorEmProvaRepository())->consultaQuantidadeDeCorredoresCadastradosParaProva($idProva)->count() > 0 ?

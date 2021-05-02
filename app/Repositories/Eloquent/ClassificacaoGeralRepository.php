@@ -21,6 +21,11 @@ class ClassificacaoGeralRepository extends AbstractRepository implements Classif
         return $this->model::where('prova_id', $idProva)->delete();
     }
 
+    /**
+     * Consulta classificação geral
+     *
+     * @return Collection
+     */
     public function consultaClassificacaoGeral(): Collection
     {
         return $this->model::select(

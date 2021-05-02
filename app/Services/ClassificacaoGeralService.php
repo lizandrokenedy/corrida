@@ -48,7 +48,7 @@ class ClassificacaoGeralService
     }
 
     /**
-     * Undocumented function
+     * Cria um registro
      *
      * @param array $dados
      * @return boolean

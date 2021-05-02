@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\Eloquent\CorredorEmProvaRepository;
 use App\Repositories\Eloquent\CorredorRepository;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 
 class CorredorService
 {
@@ -16,7 +17,12 @@ class CorredorService
         $this->repository = new CorredorRepository();
     }
 
-    public function listar()
+    /**
+     * Listar todos
+     *
+     * @return Collection
+     */
+    public function listar(): Collection
     {
         return $this->repository->all();
     }

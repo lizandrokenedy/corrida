@@ -12,7 +12,7 @@ class ResultadoRepository extends AbstractRepository implements ResultadoReposit
 
 
     /**
-     * Undocumented function
+     * Consulta resultados do corredor
      *
      * @param integer $idCorredor
      * @return Collection
