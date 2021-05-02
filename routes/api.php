@@ -5,9 +5,7 @@ use App\Http\Controllers\CorredorController;
 use App\Http\Controllers\CorredorEmProvaController;
 use App\Http\Controllers\ProvaController;
 use App\Http\Controllers\ResultadoController;
-use App\Http\Controllers\TipoClassificacaoController;
 use App\Http\Controllers\TipoProvaController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return "It's working";
+    return view('welcome');
 });
 
 

@@ -1,62 +1,84 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# API Corredores
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Projeto desenvolvido para gerênciar corredores, provas, resultados e classificações.
 
-## About Laravel
+## Tecnologias utilizadas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- PHP 7.4 FPM
+- Laravel 8
+- MySQL 5.7
+- Nginx
+- Docker
+- Docker Compose
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Instruções para subir o ambiente
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para disponibilizar o ambiente é necessário ter a ultima versão do docker e docker-compose instaladas em sua máquina, caso tenha alguma dúvida de como efetuar a instalação, acesse:
+[Tutorial Instalação Docker](https://docs.docker.com/engine/install/) escolha sua distribuição.
+[Tutorial Instalaçao Docker Compose](https://docs.docker.com/compose/install/) escolha sua distribuição.
 
-## Learning Laravel
+Siga as seguintes instruções:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Começaremos cloando o projeto, acesse o diretório onde você costuma rodar seus projetos e execute o comando:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone https://github.com/lizandrokenedy/corrida.git
+```
 
-## Laravel Sponsors
+## Configurando as variáveis de ambiente
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+No diretórios do projeto, execute o comando:
 
-### Premium Partners
+```bash
+cp .env.example .env
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+Acesse o arquivo .env e efetue as modificações nos seguintes trechos:
 
-## Contributing
+```bash
+DB_CONNECTION=mysql
+DB_HOST=SEU IP LOCAL #192.168.0.1
+DB_PORT=3308
+DB_DATABASE=corrida
+DB_USERNAME=root
+DB_PASSWORD=SUA-SENHA #123456
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Defina o DB_HOST com seu IP LOCAL
+Defina o DB_PASSWORD com uma senha de sua escolha
 
-## Code of Conduct
+Obs: Essas variáveis serão utilizadas para criar os acessos a base de dados docker, por default o usuário será sempre o root.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Faremos um build da imagem do php:7.4-fpm para personalizar e instalar algumas depedências definidas no arquivo Dockerfile.
 
-## Security Vulnerabilities
+```bash
+sudo docker-compose build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Agora iremos subir os containers.
 
-## License
+```bash
+sudo docker-compose up -d
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Este comando irá subir uma instância do php:7.4-fpm, nginx:alpine e mysql:5.7
+
+Em seguida, faremos a instalação das dependencias
+
+```bash
+sudo docker-compose exec app composer install
+```
+
+E por fim, rodamos nossas migrations e seeds para criar nossas tabelas e popular os tipos de provas.
+
+```bash
+sudo docker-compose exec app php artisan migrate --seed
+```
+
+Atenção: **O parâmetro --seed everá ser passado apenas uma vez**, caso contrários ele irá inserir os dados novamente na base gerando um duplicidade.
+
+Por fim, acesse a url com a documentação da api:
+
+```text
+http://localhost:8000/swagger/
+```

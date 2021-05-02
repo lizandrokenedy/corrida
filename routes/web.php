@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return "It's working";
-// });
+Route::get('/', function () {
+    return "A aplicação está rodando";
+});
