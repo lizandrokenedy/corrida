@@ -244,7 +244,7 @@ class ProvaController extends Controller
      *    response=400,
      *    description="Exemplos de possíveis erros",
      *    @OA\JsonContent(
-     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir a prova pois existem corredores cadastrados para ela."),
+     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir a prova, pois existem corredores cadastrados para ela."),
      *         @OA\Property(property="sucesso", type="bool", example="false"),
      *      )
      *    )

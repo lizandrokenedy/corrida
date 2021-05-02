@@ -593,7 +593,7 @@
                                     "properties": {
                                         "mensagem": {
                                             "type": "string",
-                                            "example": "Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas"
+                                            "example": "Não é possível excluir o corredor, pois o mesmo possui cadastro para uma ou mais provas"
                                         },
                                         "sucesso": {
                                             "type": "bool",
@@ -1128,7 +1128,7 @@
                                     "properties": {
                                         "mensagem": {
                                             "type": "string",
-                                            "example": "Não é possível excluir a prova pois existem corredores cadastrados para ela."
+                                            "example": "Não é possível excluir a prova, pois existem corredores cadastrados para ela."
                                         },
                                         "sucesso": {
                                             "type": "bool",
@@ -1312,6 +1312,313 @@
                                                 "2": "O inicio resultado não pode ser maior ou igual a conclusão",
                                                 "3": "O início resultado não poder ser menor ou igual ao início da prova"
                                             }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo-prova": {
+            "get": {
+                "tags": [
+                    "Tipo Prova"
+                ],
+                "summary": "Lista de tipos de provas",
+                "operationId": "App\\Http\\Controllers\\TipoProvaController::index",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "descricao": "3 km",
+                                                    "created_at": "2021-04-30T00:39:22.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:22.000000Z"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "descricao": "5 km",
+                                                    "created_at": "2021-04-30T00:39:22.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:22.000000Z"
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "descricao": "10 km",
+                                                    "created_at": "2021-04-30T00:39:22.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:22.000000Z"
+                                                },
+                                                {
+                                                    "id": 4,
+                                                    "descricao": "21 km",
+                                                    "created_at": "2021-04-30T00:39:22.000000Z",
+                                                    "updated_at": "2021-04-30T00:39:22.000000Z"
+                                                }
+                                            ]
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Tipo Prova"
+                ],
+                "summary": "Cria tipo prova",
+                "operationId": "App\\Http\\Controllers\\TipoProvaController::store",
+                "requestBody": {
+                    "description": "Exemplo criar um tipo de prova",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "descricao"
+                                ],
+                                "properties": {
+                                    "descricao": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "42 km"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "descricao": [
+                                                    "O campo descrição é obrigatório.",
+                                                    "O campo descrição não pode ser superior a 255 caracteres."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo-prova/{id}": {
+            "put": {
+                "tags": [
+                    "Tipo Prova"
+                ],
+                "summary": "Atualiza tipo prova",
+                "operationId": "App\\Http\\Controllers\\TipoProvaController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID tipo prova",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Exemplo para atualizar um tipo prova",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "descricao"
+                                ],
+                                "properties": {
+                                    "descricao": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "45 km"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "descricao": [
+                                                    "O campo descrição é obrigatório.",
+                                                    "O campo descrição não pode ser superior a 255 caracteres."
+                                                ]
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tipo Prova"
+                ],
+                "summary": "Deleta tipo prova",
+                "operationId": "App\\Http\\Controllers\\TipoProvaController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID tipo prova",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Não é possível excluir o tipo de prova, pois existem provas cadastradas para este tipo."
                                         },
                                         "sucesso": {
                                             "type": "bool",

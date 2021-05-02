@@ -19,9 +19,53 @@ class TipoProvaController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *   path="/api/tipo-prova",
+     *   tags={"Tipo Prova"},
+     *   summary="Lista de tipos de provas",
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="data", type="object", example={
+     *            {
+     *              "id": 1,
+     *              "descricao": "3 km",
+     *              "created_at": "2021-04-30T00:39:22.000000Z",
+     *              "updated_at": "2021-04-30T00:39:22.000000Z"
+     *            },
+     *            {
+     *              "id": 2,
+     *              "descricao": "5 km",
+     *              "created_at": "2021-04-30T00:39:22.000000Z",
+     *              "updated_at": "2021-04-30T00:39:22.000000Z"
+     *            },
+     *            {
+     *              "id": 3,
+     *              "descricao": "10 km",
+     *              "created_at": "2021-04-30T00:39:22.000000Z",
+     *              "updated_at": "2021-04-30T00:39:22.000000Z"
+     *            },
+     *            {
+     *              "id": 4,
+     *              "descricao": "21 km",
+     *              "created_at": "2021-04-30T00:39:22.000000Z",
+     *              "updated_at": "2021-04-30T00:39:22.000000Z"
+     *            },
+     *      }),
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Erro ao realizar operação."),
+     *         @OA\Property(property="sucesso", type="bool", example="false")
+     *      )
+     *   ),
+     * )
      */
     public function index()
     {
@@ -33,10 +77,43 @@ class TipoProvaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * @OA\Post(
+     *   path="/api/tipo-prova",
+     *   tags={"Tipo Prova"},
+     *   summary="Cria tipo prova",
+     *   @OA\RequestBody(
+     *    required=true,
+     *    description="Exemplo criar um tipo de prova",
+     *    @OA\JsonContent(
+     *       required={"descricao"},
+     *       @OA\Property(property="descricao", type="string", format="string", example="42 km")
+     *    ),
+     *  ),
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="object", example={
+     *          "descricao": {
+     *              "O campo descrição é obrigatório.",
+     *              "O campo descrição não pode ser superior a 255 caracteres.",
+     *              },
+     *           }
+     *         ),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
+     *      )
+     *    )
+     *   ),
+     * )
      */
     public function store(Request $request)
     {
@@ -74,11 +151,54 @@ class TipoProvaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *   path="/api/tipo-prova/{id}",
+     *   tags={"Tipo Prova"},
+     *   summary="Atualiza tipo prova",
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *    * @OA\Parameter(
+     *    description="ID tipo prova",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     *   ),
+     *   @OA\RequestBody(
+     *    required=true,
+     *    description="Exemplo para atualizar um tipo prova",
+     *    @OA\JsonContent(
+     *       required={"descricao"},
+     *       @OA\Property(property="descricao", type="string", format="string", example="45 km"),
+     *    ),
+     *  ),
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="object", example={
+     *          "descricao": {
+     *              "O campo descrição é obrigatório.",
+     *              "O campo descrição não pode ser superior a 255 caracteres.",
+     *              },
+     *           }
+     *         ),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
+     *      )
+     *    )
+     *   ),
+     * )
      */
     public function update(Request $request, $id)
     {
@@ -98,10 +218,40 @@ class TipoProvaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *   path="/api/tipo-prova/{id}",
+     *   tags={"Tipo Prova"},
+     *   summary="Deleta tipo prova",
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     *    * @OA\Parameter(
+     *    description="ID tipo prova",
+     *    in="path",
+     *    name="id",
+     *    required=true,
+     *    example="1",
+     *    @OA\Schema(
+     *       type="integer",
+     *       format="int64"
+     *     )
+     *   ),
+     *   @OA\Response(
+     *    response=200,
+     *    description="Sucesso",
+     *      @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Operação realizada com sucesso."),
+     *         @OA\Property(property="sucesso", type="bool", example="true")
+     *      )
+     *   ),
+     *   @OA\Response(
+     *    response=400,
+     *    description="Exemplos de possíveis erros",
+     *    @OA\JsonContent(
+     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir o tipo de prova, pois existem provas cadastradas para este tipo."),
+     *         @OA\Property(property="sucesso", type="bool", example="false"),
+     *      )
+     *    )
+     *   ),
+     * )
      */
     public function destroy($id)
     {

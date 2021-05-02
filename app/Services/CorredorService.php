@@ -73,7 +73,7 @@ class CorredorService
     {
 
         if ($this->validaSeCorredorEstaCadastradoParaAlgumaProva($id)) {
-            throw new Exception('Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas');
+            throw new Exception('Não é possível excluir o corredor, pois o mesmo possui cadastro para uma ou mais provas');
         }
 
         $registro = $this->repository->delete($id);

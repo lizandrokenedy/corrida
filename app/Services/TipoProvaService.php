@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repositories\Eloquent\ProvaRepository;
 use App\Repositories\Eloquent\TipoProvaRepository;
 use Exception;
 
@@ -71,12 +72,24 @@ class TipoProvaService
      */
     public function deletar(int $id): bool
     {
-        $registro = $this->repository->delete($id);
 
-        if (!$registro) {
+        $tipoProva = $this->repository->find($id);
+
+        if (!$tipoProva) {
             throw new Exception('Registro não encontrado.');
         }
 
-        return $registro;
+        if ($this->validaSeExistemProvasCadastradasPorTipoProva($id)) {
+            throw new Exception('Não é possível excluir o tipo de prova, pois existem provas cadastradas para este tipo.');
+        }
+
+
+        return $this->repository->delete($id);
+    }
+
+
+    private function validaSeExistemProvasCadastradasPorTipoProva(int $idTipoProva): bool
+    {
+        return (new ProvaRepository())->consultaProvasPorTipo($idTipoProva)->count() > 0 ? true : false;
     }
 }

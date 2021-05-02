@@ -78,7 +78,7 @@ class ProvaService
         }
 
         if ($this->validaSeExistemCorredoresCadastradosParaProva($id)) {
-            throw new Exception('Não é possível excluir a prova pois existem corredores cadastrados para ela.');
+            throw new Exception('Não é possível excluir a prova, pois existem corredores cadastrados para ela.');
         }
 
         return $this->repository->delete($id);

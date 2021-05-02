@@ -24,7 +24,7 @@ class TipoProvaRequest extends FormRequest
     public function rules()
     {
         return [
-            'descricao' => 'required'
+            'descricao' => 'required|max:255'
         ];
     }
 }

@@ -14,4 +14,5 @@ interface ProvaRepositoryInterface
     public function find(int $id);
     public function update(array $data, int $id): bool;
     public function delete(int $id): bool;
+    public function consultaProvasPorTipo(int $idTipoProva): Collection;
 }

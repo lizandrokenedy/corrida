@@ -263,7 +263,7 @@ class CorredorController extends Controller
      *    response=400,
      *    description="Exemplos de possíveis erros",
      *    @OA\JsonContent(
-     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir o corredor pois o mesmo possui cadastro para uma ou mais provas"),
+     *         @OA\Property(property="mensagem", type="string", example="Não é possível excluir o corredor, pois o mesmo possui cadastro para uma ou mais provas"),
      *         @OA\Property(property="sucesso", type="bool", example="false"),
      *      )
      *    )

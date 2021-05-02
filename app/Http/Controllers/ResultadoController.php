@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResultadoRequest;
-use App\Services\CorredorEmProvaService;
 use App\Services\ResultadoService;
 use Exception;
 use Illuminate\Http\Request;
