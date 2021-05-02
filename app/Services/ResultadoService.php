@@ -62,22 +62,20 @@ class ResultadoService
      */
     private function aplicaRegrasParaGerarResultado(array $dados): void
     {
-        $corredorEmProva = $this->validaCorredorSemCadastroParaProva($dados['prova_id'], $dados['corredor_id']);
-
-        if ($corredorEmProva) {
+        if ($this->validaCorredorSemCadastroParaProva($dados['prova_id'], $dados['corredor_id'])) {
             throw new Exception('O corredor não está cadastrado para esta prova.');
         }
 
-        $corredorJaPossuiResultadoDaProva = $this->validaProvaConcluidaCorredor($dados['prova_id'], $dados['corredor_id']);
-
-        if ($corredorJaPossuiResultadoDaProva) {
+        if ($this->validaProvaConcluidaCorredor($dados['prova_id'], $dados['corredor_id'])) {
             throw new Exception('O corredor já possui resultado para esta prova.');
         }
 
-        $inicioProvaMaiorQueConclusao = $this->validaInicioMaiorOuIgualConclusao($dados['inicio_prova'], $dados['conclusao_prova']);
+        if ($this->validaInicioMaiorOuIgualConclusao($dados['inicio_prova'], $dados['conclusao_prova'])) {
+            throw new Exception('O inicio resultado não pode ser maior ou igual a conclusão');
+        }
 
-        if ($inicioProvaMaiorQueConclusao) {
-            throw new Exception('O inicio da prova não pode ser maior ou igual que a conclusão');
+        if ($this->validaInicioResultadoMenorQueInicioDaProva($dados['inicio_prova'], $dados['prova_id'])) {
+            throw new Exception('O início resultado não poder ser menor ou igual ao início da prova');
         }
     }
 
@@ -131,6 +129,26 @@ class ResultadoService
         $conclusao = Carbon::parse($conclusaoProva);
 
         if ($inicio >= $conclusao) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Função que valida o resultado início menor que o início da prova
+     *
+     * @param string $inicioResultado
+     * @param integer $idProva
+     * @return boolean
+     */
+    private function validaInicioResultadoMenorQueInicioDaProva(string $inicioResultado, int $idProva): bool
+    {
+        $prova = Carbon::parse((new ProvaRepository)->find($idProva)->data);
+        $resultado = Carbon::parse($inicioResultado);
+
+        if ($resultado <= $prova) {
             return true;
         }
 

@@ -1142,6 +1142,189 @@
                     }
                 }
             }
+        },
+        "/api/resultado": {
+            "get": {
+                "tags": [
+                    "Resultado"
+                ],
+                "summary": "Lista de resultados",
+                "operationId": "App\\Http\\Controllers\\ResultadoController::index",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": [
+                                                {
+                                                    "id": 1,
+                                                    "corredor_id": 1,
+                                                    "prova_id": 1,
+                                                    "inicio_prova": "2021-04-28 08:10:12",
+                                                    "conclusao_prova": "2021-04-28 09:30:13",
+                                                    "created_at": "2021-04-30T00:41:13.000000Z",
+                                                    "updated_at": "2021-04-30T00:41:13.000000Z"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "corredor_id": 2,
+                                                    "prova_id": 1,
+                                                    "inicio_prova": "2021-04-28 08:10:12",
+                                                    "conclusao_prova": "2021-04-28 09:25:13",
+                                                    "created_at": "2021-04-30T00:41:40.000000Z",
+                                                    "updated_at": "2021-04-30T00:41:40.000000Z"
+                                                }
+                                            ]
+                                        },
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Erro ao realizar operação."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Resultado"
+                ],
+                "summary": "Cria resultado",
+                "operationId": "App\\Http\\Controllers\\ResultadoController::store",
+                "requestBody": {
+                    "description": "Exemplo criar uma resultado",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "corredor_id",
+                                    "prova_id",
+                                    "inicio_prova",
+                                    "conclusao_prova"
+                                ],
+                                "properties": {
+                                    "corredor_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "prova_id": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "1"
+                                    },
+                                    "inicio_prova": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2021-05-31 08:35"
+                                    },
+                                    "conclusao_prova": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "2021-05-31 09:32"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "string",
+                                            "example": "Operação realizada com sucesso."
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Exemplos de possíveis erros",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "mensagem": {
+                                            "type": "object",
+                                            "example": {
+                                                "corredor_id": [
+                                                    "O campo corredor id é obrigatório.",
+                                                    "O campo corredor id selecionado é inválido."
+                                                ],
+                                                "prova_id": [
+                                                    "O campo prova id é obrigatório.",
+                                                    "O campo prova id selecionado é inválido."
+                                                ],
+                                                "inicio_prova": [
+                                                    "O campo inicio prova é obrigatório.",
+                                                    "O campo inicio prova não é uma data válida."
+                                                ],
+                                                "conclusao_prova": [
+                                                    "O campo conclusao prova é obrigatório.",
+                                                    "O campo conclusao prova não é uma data válida."
+                                                ],
+                                                "0": "O corredor não está cadastrado para esta prova.",
+                                                "1": "O corredor já possui resultado para esta prova.",
+                                                "2": "O inicio resultado não pode ser maior ou igual a conclusão",
+                                                "3": "O início resultado não poder ser menor ou igual ao início da prova"
+                                            }
+                                        },
+                                        "sucesso": {
+                                            "type": "bool",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
