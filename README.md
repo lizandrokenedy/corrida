@@ -77,7 +77,7 @@ sudo docker-compose exec app php artisan migrate --seed
 
 Atenção: **O parâmetro --seed everá ser passado apenas uma vez**, caso contrários ele irá inserir os dados novamente na base gerando um duplicidade.
 
-Acesse a documentação da api, através da url:
+Acesse a documentação da api através da url:
 
 ```text
 http://localhost:8000/swagger/
