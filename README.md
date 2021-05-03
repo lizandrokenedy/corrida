@@ -11,6 +11,11 @@ Projeto desenvolvido para gerênciar corredores, provas, resultados e classifica
 - Docker
 - Docker Compose
 
+## Portas utilizadas
+
+- 3308
+- 8000
+
 ## Instruções para subir o ambiente
 
 Para disponibilizar o ambiente é necessário ter a ultima versão do docker e docker-compose instaladas em sua máquina, caso tenha alguma dúvida de como efetuar a instalação, acesse:
