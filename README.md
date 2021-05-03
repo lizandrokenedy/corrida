@@ -13,8 +13,8 @@ Projeto desenvolvido para gerênciar corredores, provas, resultados e classifica
 
 ## Portas utilizadas
 
-- 3308
-- 8000
+- 3308 - MySQL
+- 8000 - Nginx
 
 ## Instruções para subir o ambiente
 
